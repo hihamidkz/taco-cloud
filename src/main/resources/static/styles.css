@@ -1,7 +1,25 @@
+input {
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
 .w270 {
     width: 270px;
 }
 
+.mt5 {
+    margin-top: 5px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
 .align-right {
     text-align: right;
+}
+
+.validationError {
+    display: block;
+    color: #b50303;
 }
