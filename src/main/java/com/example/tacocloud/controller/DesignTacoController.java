@@ -2,25 +2,39 @@ package com.example.tacocloud.controller;
 
 import com.example.tacocloud.model.Ingredient;
 import com.example.tacocloud.model.IngredientType;
+import com.example.tacocloud.model.Order;
 import com.example.tacocloud.model.Taco;
+import com.example.tacocloud.repository.IngredientRepository;
+import com.example.tacocloud.repository.TacoRepository;
+import com.example.tacocloud.repository.impl.jdbc.JdbcIngredientRepository;
+import com.example.tacocloud.repository.impl.jdbc.JdbcTacoRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
 @RequestMapping("/design")
+@SessionAttributes("order")
 public class DesignTacoController {
+
+    private IngredientRepository ingredientRepository;
+    private TacoRepository tacoRepository;
+
+    @Autowired
+    public DesignTacoController(JdbcIngredientRepository ingredientRepository,
+                                JdbcTacoRepository tacoRepository) {
+        this.ingredientRepository = ingredientRepository;
+        this.tacoRepository = tacoRepository;
+    }
 
     @GetMapping
     public String showDesignForm(Model model) {
@@ -30,9 +44,20 @@ public class DesignTacoController {
         return "design";
     }
 
+    @ModelAttribute(name = "order")
+    public Order order() {
+        return new Order();
+    }
+
+    @ModelAttribute(name = "design")
+    public Taco taco() {
+        return new Taco();
+    }
+
     @PostMapping
     public String processDesign(@Valid @ModelAttribute("design") Taco design,
-                                Errors errors, Model model) {
+                                Errors errors, Model model,
+                                @ModelAttribute Order order) {
         if (errors.hasErrors()) {
             setIngredientsToModel(model);
             model.addAttribute("design", design);
@@ -40,23 +65,15 @@ public class DesignTacoController {
         }
 
         log.info("Processing design " + design);
+        Taco savedTaco = tacoRepository.save(design);
+        order.addTaco(savedTaco);
 
         return "redirect:/orders/current";
     }
 
     private void setIngredientsToModel(Model model) {
-        List<Ingredient> ingredients = Arrays.asList(
-                new Ingredient("FLTO", "Flour Tortilla", IngredientType.WRAP),
-                new Ingredient("COTO", "Corn Tortilla", IngredientType.WRAP),
-                new Ingredient("GRBF", "Ground Beef", IngredientType.PROTEIN),
-                new Ingredient("CARN", "Carnitas", IngredientType.PROTEIN),
-                new Ingredient("TMTO", "Diced Tomatoes", IngredientType.VEGGIES),
-                new Ingredient("LETC", "Lettuce", IngredientType.VEGGIES),
-                new Ingredient("CHED", "Cheddar", IngredientType.CHEESE),
-                new Ingredient("JACK", "Monterrey Jack", IngredientType.CHEESE),
-                new Ingredient("SLSA", "Salsa", IngredientType.SAUCE),
-                new Ingredient("SRCR", "Sour Cream", IngredientType.SAUCE)
-        );
+        List<Ingredient> ingredients = new ArrayList<>();
+        ingredientRepository.findAll().forEach(ingredients::add);
 
         IngredientType[] types = IngredientType.values();
         for (IngredientType type : types) {

@@ -9,7 +9,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(HomeController.class) // Web test for home controller
+@WebMvcTest // Web test for home controller
 public class HomeControllerTest {
 
     @Autowired

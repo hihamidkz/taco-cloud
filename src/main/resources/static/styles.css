@@ -1,6 +1,14 @@
+body {
+    margin: 10px 20px;
+}
+
 input {
     margin-top: 2px;
     margin-bottom: 2px;
+}
+
+h3 {
+    margin-bottom: 0;
 }
 
 .w270 {

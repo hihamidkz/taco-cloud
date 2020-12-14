@@ -5,20 +5,26 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Data
 public class Order {
 
+    private long id;
+    private Date placedAt;
+
     @NotBlank(message = "Name is required")
-    private String name;
+    private String deliveryName;
     @NotBlank(message = "Street is required")
-    private String street;
+    private String deliveryStreet;
     @NotBlank(message = "City is required")
-    private String city;
+    private String deliveryCity;
     @NotBlank(message = "State is required")
-    private String state;
+    private String deliveryState;
     @NotBlank(message = "Zip is required")
-    private String zip;
+    private String deliveryZip;
 
     @CreditCardNumber(message = "Invalid credit card number")
     private String ccNumber;
@@ -26,5 +32,11 @@ public class Order {
     private String ccExpiration;
     @Pattern(regexp = "\\d{3}", message = "Invalid CVV")
     private String ccCVV;
+
+    private List<Taco> tacos = new ArrayList<>();
+
+    public void addTaco(Taco taco) {
+        tacos.add(taco);
+    }
 
 }
