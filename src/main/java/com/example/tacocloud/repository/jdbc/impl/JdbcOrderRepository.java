@@ -1,8 +1,8 @@
-package com.example.tacocloud.repository.impl.jdbc;
+package com.example.tacocloud.repository.jdbc.impl;
 
 import com.example.tacocloud.model.Order;
 import com.example.tacocloud.model.Taco;
-import com.example.tacocloud.repository.OrderRepository;
+import com.example.tacocloud.repository.jdbc.OrderRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

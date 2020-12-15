@@ -1,8 +1,8 @@
-package com.example.tacocloud.repository.impl.jdbc;
+package com.example.tacocloud.repository.jdbc.impl;
 
 import com.example.tacocloud.model.Ingredient;
 import com.example.tacocloud.model.IngredientType;
-import com.example.tacocloud.repository.IngredientRepository;
+import com.example.tacocloud.repository.jdbc.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;

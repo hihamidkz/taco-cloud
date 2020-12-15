@@ -1,4 +1,4 @@
-package com.example.tacocloud.repository;
+package com.example.tacocloud.repository.jdbc;
 
 import com.example.tacocloud.model.Ingredient;
 

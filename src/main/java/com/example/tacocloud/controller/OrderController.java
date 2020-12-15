@@ -1,8 +1,7 @@
 package com.example.tacocloud.controller;
 
 import com.example.tacocloud.model.Order;
-import com.example.tacocloud.repository.OrderRepository;
-import com.example.tacocloud.repository.impl.jdbc.JdbcOrderRepository;
+import com.example.tacocloud.repository.jpa.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +24,7 @@ public class OrderController {
     private OrderRepository orderRepository;
 
     @Autowired
-    public OrderController(JdbcOrderRepository orderRepository) {
+    public OrderController(OrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
 

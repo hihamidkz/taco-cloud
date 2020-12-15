@@ -1,7 +1,8 @@
-package com.example.tacocloud.repository.impl.jdbc;
+package com.example.tacocloud.repository.jdbc.impl;
 
+import com.example.tacocloud.model.Ingredient;
 import com.example.tacocloud.model.Taco;
-import com.example.tacocloud.repository.TacoRepository;
+import com.example.tacocloud.repository.jdbc.TacoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -29,8 +30,8 @@ public class JdbcTacoRepository implements TacoRepository {
     public Taco save(Taco taco) {
         long tacoId = saveTaco(taco);
         taco.setId(tacoId);
-        for (String ingredient : taco.getIngredients()) {
-            saveIngredientToTaco(ingredient, tacoId);
+        for (Ingredient ingredient : taco.getIngredients()) {
+            saveIngredientToTaco(ingredient.getId(), tacoId);
         }
 
         return taco;

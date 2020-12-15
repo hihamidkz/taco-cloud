@@ -3,6 +3,7 @@ package com.example.tacocloud.model;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
@@ -10,8 +11,12 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@Entity
+@Table(name = "TacoOrder")
 public class Order {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private Date placedAt;
 
@@ -33,10 +38,15 @@ public class Order {
     @Pattern(regexp = "\\d{3}", message = "Invalid CVV")
     private String ccCVV;
 
+    @ManyToMany(targetEntity = Taco.class)
     private List<Taco> tacos = new ArrayList<>();
 
     public void addTaco(Taco taco) {
         tacos.add(taco);
     }
 
+    @PrePersist
+    void placedAt() {
+        placedAt = new Date();
+    }
 }

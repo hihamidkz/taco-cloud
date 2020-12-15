@@ -1,4 +1,4 @@
-delete from taco_ingredient;
+/*delete from taco_ingredient;
 delete from taco;
 delete from ingredient;
 delete from tacoorder_taco;
@@ -23,4 +23,4 @@ insert into Ingredient (id, name, type)
 insert into Ingredient (id, name, type)
     values ('SLSA', 'Salsa', 'SAUCE');
 insert into Ingredient (id, name, type)
-    values ('SRCR', 'Sour Cream', 'SAUCE');
+    values ('SRCR', 'Sour Cream', 'SAUCE');*/

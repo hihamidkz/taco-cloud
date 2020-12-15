@@ -1,4 +1,4 @@
-create table if not exists Ingredient(
+/*create table if not exists Ingredient(
     id varchar(4) primary key not null,
     name varchar(25) not null,
     type varchar(10) not null
@@ -31,4 +31,4 @@ create table if not exists TacoOrder(
 create table if not exists TacoOrder_Taco(
     orderId bigint not null references TacoOrder,
     tacoId bigint not null references Taco
-);
+);*/

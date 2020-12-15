@@ -4,10 +4,8 @@ import com.example.tacocloud.model.Ingredient;
 import com.example.tacocloud.model.IngredientType;
 import com.example.tacocloud.model.Order;
 import com.example.tacocloud.model.Taco;
-import com.example.tacocloud.repository.IngredientRepository;
-import com.example.tacocloud.repository.TacoRepository;
-import com.example.tacocloud.repository.impl.jdbc.JdbcIngredientRepository;
-import com.example.tacocloud.repository.impl.jdbc.JdbcTacoRepository;
+import com.example.tacocloud.repository.jpa.IngredientRepository;
+import com.example.tacocloud.repository.jpa.TacoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,8 +28,8 @@ public class DesignTacoController {
     private TacoRepository tacoRepository;
 
     @Autowired
-    public DesignTacoController(JdbcIngredientRepository ingredientRepository,
-                                JdbcTacoRepository tacoRepository) {
+    public DesignTacoController(IngredientRepository ingredientRepository,
+                                TacoRepository tacoRepository) {
         this.ingredientRepository = ingredientRepository;
         this.tacoRepository = tacoRepository;
     }
