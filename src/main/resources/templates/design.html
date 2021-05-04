@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Design Taco</title>
+
+  <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+  <h1>Design your taco!</h1>
+  <img th:src="@{/images/TacoCloud.png}"/>
+
+  <form method="POST" th:action="@{/logout}">
+    <input type="submit" value="Logout"/>
+  </form>
+
+  <form method="POST" th:object="${design}">
+    <div th:if="${#fields.hasErrors()}">
+      <span class="validationError">
+        Please, correct the problems below and resubmit.
+      </span>
+    </div>
+
+    <div class="grid">
+      <div id="wraps">
+        <h3>Designate your wrap:</h3>
+        <div th:each="ingredient : ${wrap}">
+          <input type="checkbox" name="ingredients" th:value="${ingredient.id}">
+          <span th:text="${ingredient.name}">INGREDIENT</span> <br>
+        </div>
+      </div>
+
+      <div id="proteins">
+        <h3>Designate your protein:</h3>
+        <div th:each="ingredient : ${protein}">
+          <input type="checkbox" name="ingredients" th:value="${ingredient.id}">
+          <span th:text="${ingredient.name}">INGREDIENT</span> <br>
+        </div>
+      </div>
+
+      <div id="veggies">
+        <h3>Designate your veggies:</h3>
+        <div th:each="ingredient : ${veggies}">
+          <input type="checkbox" name="ingredients" th:value="${ingredient.id}">
+          <span th:text="${ingredient.name}">INGREDIENT</span> <br>
+        </div>
+      </div>
+
+      <div id="cheeses">
+        <h3>Designate your cheese:</h3>
+        <div th:each="ingredient : ${cheese}">
+          <input type="checkbox" name="ingredients" th:value="${ingredient.id}">
+          <span th:text="${ingredient.name}">INGREDIENT</span> <br>
+        </div>
+      </div>
+
+      <div id="sauces">
+        <h3>Designate your sauce:</h3>
+        <div th:each="ingredient : ${sauce}">
+          <input type="checkbox" name="ingredients" th:value="${ingredient.id}">
+          <span th:text="${ingredient.name}">INGREDIENT</span> <br>
+        </div>
+      </div>
+    </div>
+    <span class="validationError" th:if="${#fields.hasErrors()}"
+          th:errors="*{ingredients}">ingredients error</span>
+
+    <h3>Name your creation:</h3>
+    <input type="text" th:field="*{name}"/>
+    <span class="validationError" th:if="${#fields.hasErrors()}"
+          th:errors="*{name}">name error</span>
+
+    <button class="mt10">Submit your taco</button>
+  </form>
+</body>
+</html>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 200px 200px;
+    margin-bottom: 5px;
+  }
+</style>
